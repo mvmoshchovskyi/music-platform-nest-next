@@ -1,16 +1,37 @@
 import React from 'react';
 import Navbar from "../components/Navbar";
 import {Container} from "@material-ui/core";
+import Player from "../components/Player";
+import Head from "next/head";
 
-const MainLayout:React.FC  = ({children}) => {
+interface MainLayoutProps {
+    title?: string;
+    description?: string;
+    keywords?: string;
+}
+
+const MainLayout: React.FC<MainLayoutProps>
+    = ({
+           children,
+           title,
+           description,
+           keywords
+       }) => {
     return (
-        <div>
+        <>
+            <Head>
+                <title>{title || 'Music area'}</title>
+                <meta name="description" content={`Music area` + description}/>
+                <meta name="robots" content="index, follow"/>
+                <meta name="keywords" content={keywords || "Music, tracks, artist"}/>
+                <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            </Head>
             <Navbar/>
-            <Container style={{margin:'90px 0'}}>
-
-            {children}
+            <Container style={{margin: '90px 0'}}>
+                {children}
             </Container>
-        </div>
+            <Player/>
+        </>
     );
 };
 
